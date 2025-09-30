@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SADIK Visuals — Luxury Video Editing</title>
 <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/9f37f3c73d.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 <style>
 body {
-  background: #0a0a0a;
+  background: linear-gradient(160deg, #0a0a0a, #141414);
   color: #f5f5f5;
   font-family: 'Inter', sans-serif;
   position: relative;
@@ -20,21 +21,273 @@ h1,h2,h3,.luxury-heading { font-family: 'Playfair Display', serif; letter-spacin
 .fade-up { opacity:0; transform: translateY(20px); animation: fadeUp 1s ease forwards; }
 @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
+/* see my works*/
+
+a[href="#works"] {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 15px rgba(212,175,55,0.4);
+}
+
+a[href="#works"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(45deg, #d4af37, #f5e6c4);
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+a[href="#works"]:hover::after {
+  opacity: 1;
+}
+
+a[href="#works"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(212,175,55,0.8);
+}
+
+
 /* Logo marquee */
-#marquee-container { overflow:hidden; max-width:6xl; margin:0 auto; }
-.marquee { display:flex; width:max-content; animation: scroll 20s linear infinite; }
-.marquee-inner { display:flex; align-items:center; gap:3rem; }
-.logo { height:100px; max-width:200px; object-fit:contain; transition: transform 0.3s, opacity 0.3s; }
-.logo:hover { transform:scale(1.2); opacity:1 !important; }
-@keyframes scroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+    /* Container */
+    #marquee-container {
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 1200px; /* same as max-w-6xl */
+    }
+
+    /* Marquee wrapper */
+    .marquee {
+      display: flex;
+      width: fit-content;
+    }
+
+    /* Inner scrolling row */
+    .marquee-inner {
+      display: flex;
+      align-items: center;
+      gap: 3rem; /* equal spacing */
+      animation: scroll 20s linear infinite;
+    }
+
+    /* Logos */
+    .logo {
+      height: 100px;
+      max-width: 200px;
+      object-fit: contain;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0.8;
+    }
+
+    .logo:hover {
+      transform: scale(1.2);
+      opacity: 1 !important;
+    }
+
+    /* Animation */
+    @keyframes scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  
+
 
 /* Featured Work */
-.youtube-wrapper { position:relative; padding-top:56.25%; overflow:hidden; border-radius:1rem; background:#111; }
-.youtube-wrapper iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
+/* Featured Work container: force horizontal row */
+#works-container {
+  display: flex;
+  flex-wrap: nowrap;    /* ✅ stop wrapping vertically */
+  gap: 2rem;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+
+/* Cards: fixed horizontal flex items */
+.youtube-wrapper {
+  position: relative;
+  flex: 0 0 auto;       /* ✅ lock to content, no wrapping */
+  width: 400px;         /* ✅ fixed width card */
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #111;
+  padding-top: 225px;   /* 16:9 aspect ratio */
+
+  /* focus effect base state */
+  opacity: 0.5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.youtube-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Active (centered) card */
+.youtube-wrapper.active {
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+
+
 
 /* Stats */
 .counter { display:inline-block; font-weight:bold; font-size:2.5rem; }
-.counter::after { content:'+'; }
+.counter::after { content:''; }
+
+/* Types of workSeamless scroll track */
+/* Seamless scroll */
+/* New Section Only */
+#new-marquee-section {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent !important;  /* ✅ remove black bg */
+}
+
+
+#new-marquee-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin: 40px 0;
+}
+
+#new-marquee-section .marquee-container {
+  position: relative;
+  width: 50%;
+  overflow: hidden;
+  margin-bottom: 40px;
+  padding: 40px 0;
+
+  /* ✅ This applies feathering without adding background color */
+  -webkit-mask-image: linear-gradient(to right, transparent, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, transparent);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+
+  mask-image: linear-gradient(to right, transparent, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, transparent);
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+
+#new-marquee-section .marquee-container::before,
+#new-marquee-section .marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;   /* ✅ make a bit wider for smoother fade */
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#new-marquee-section .marquee-container::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10,10,10,1) 0%,      /* match your page bg (#0a0a0a / #141414 blend) */
+    rgba(10,10,10,0.6) 20%,
+    rgba(10,10,10,0.3) 40%,
+    rgba(10,10,10,0.0) 100%   /* soft fade */
+  );
+}
+
+#new-marquee-section .marquee-container::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(10,10,10,1) 0%,
+    rgba(10,10,10,0.6) 20%,
+    rgba(10,10,10,0.3) 40%,
+    rgba(10,10,10,0.0) 100%
+  );
+}
+
+
+
+#new-marquee-section .marquee {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  animation: scroll-left 25s linear infinite;
+}
+
+#new-marquee-section .marquee.reverse {
+  animation: scroll-right 25s linear infinite;
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+#new-marquee-section .card {
+  flex: 0 0 230px;
+  background: radial-gradient(
+    circle at top center, 
+    rgba(212, 175, 55, 0.25),   /* soft gold glow */
+    rgba(245, 230, 196, 0.15) 35%, /* lighter gold highlight */
+    rgba(0, 0, 0, 1) 75%         /* fade into black */
+  );
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  border: 1px solid rgba(245, 230, 196, 0.45); /* subtle brand gold */
+  box-shadow: inset 0 0 20px rgba(245,230,196,0.3),
+              0 8px 25px rgba(0,0,0,0.6);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+#new-marquee-section .card:hover {
+  transform: translateY(-10px) scale(1.04);
+  box-shadow: inset 0 0 25px rgba(245,230,196,0.2),
+              0 14px 35px rgba(212,175,55,0.25);
+}
+
+
+
+#new-marquee-section .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #d4af37, #f5e6c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#new-marquee-section .card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  background: linear-gradient(45deg, #d4af37, #f5e6c4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#new-marquee-section .card p {
+  font-size: 0.85rem;
+  color: #b5b5b5;
+  line-height: 1.4;
+}
+
+
+
 
 /* Contact */
 #contact a:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(212,175,55,0.4); }
@@ -47,51 +300,88 @@ h1,h2,h3,.luxury-heading { font-family: 'Playfair Display', serif; letter-spacin
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
   <h1 class="text-5xl md:text-7xl luxury-heading gold-gradient fade-up" style="animation-delay:0.2s">SADIK VISUALS</h1>
   <p class="mt-4 text-lg md:text-xl text-gray-300 fade-up" style="animation-delay:0.4s">Crafting scroll-stopping Edits for Premium Brands</p>
-  <a href="#works" class="mt-8 px-8 py-3 rounded-full text-black font-semibold fade-up" style="background:linear-gradient(45deg,#d4af37,#f5e6c4); animation-delay:0.6s">
-    See My Works
-  </a>
+  <a href="#works" 
+   class="mt-8 px-8 py-3 rounded-full text-black font-semibold fade-up transition-all duration-300 relative overflow-hidden"
+   style="background:linear-gradient(45deg,#d4af37,#f5e6c4); animation-delay:0.6s">
+  See My Works
+</a>
+
 </section>
 
 <!-- Clients Logos -->
 <section class="py-16">
-  <div id="marquee-container" class="gradient-border p-6 max-w-6xl mx-auto">
-    <p class="text-center text-gray-400 uppercase tracking-widest mb-6">Trusted by Global Brands</p>
-    <div class="marquee">
-      <div class="marquee-inner">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/agrowdesh.png" alt="Client 1" class="logo">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/wildelephant.png" alt="Client 2" class="logo">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/statx.png" alt="Client 3" class="logo">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rtm.png" alt="Client 4" class="logo">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rusc.png" alt="Client 5" class="logo">
+  <div id="marquee-container" class="gradient-border p-6 mx-auto">
+    <p class="text-center text-gray-400 uppercase tracking-widest mb-6">
+      Trusted by Global Brands
+    </p>
 
-      </div>
+    <div class="marquee">
+      <!-- First set -->
       <div class="marquee-inner">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/agrowdesh.png" alt="Client 1" class="logo">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/wildelephant.png" alt="Client 2" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/agroWdesh.png" alt="Client 1" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/priosite.png" alt="Client 2" class="logo">
         <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/statx.png" alt="Client 3" class="logo">
         <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rtm.png" alt="Client 4" class="logo">
-        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rusc.png" alt="Client 5" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/wild elephant.png" alt="Client 5" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/zenurture.png" alt="Client 6" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rusc.png" alt="Client 7" class="logo">
+
+        <!-- Duplicate set for seamless loop -->
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/agroWdesh.png" alt="Client 1" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/priosite.png" alt="Client 2" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/statx.png" alt="Client 3" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rtm.png" alt="Client 4" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/wild elephant.png" alt="Client 5" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/zenurture.png" alt="Client 6" class="logo">
+        <img src="https://raw.githubusercontent.com/Decoder-404/logos/main/images/rusc.png" alt="Client 7" class="logo">
       </div>
     </div>
   </div>
 </section>
+
 
 
 <!-- Featured Work -->
-<section id="works" class="py-20 px-6 max-w-6xl mx-auto">
-  <h2 class="text-3xl md:text-4xl luxury-heading gold-gradient mb-10 text-center">Featured Work</h2>
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <div class="gradient-border overflow-hidden group youtube-wrapper">
-      <iframe src="https://www.youtube.com/embed/XuzUSg-Zxzg" title="YouTube video" frameborder="0" allowfullscreen></iframe>
+<section id="works" class="py-20 px-6 max-w-6xl mx-auto relative">
+  <h2 class="text-3xl md:text-4xl luxury-heading gold-gradient mb-10 text-center">
+    Featured Work
+  </h2>
+
+  <div class="relative">
+    <!-- Left Button -->
+    <button onclick="scrollWorks(-1)" aria-label="Scroll left"
+      class="absolute -left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full shadow-xl hover:scale-110 transition"
+      style="background:linear-gradient(45deg,#d4af37,#f5e6c4);">
+      <span class="text-black text-3xl font-bold">&lt;</span>
+    </button>
+
+    <!-- Scroll Container -->
+    <div id="works-container" class="no-scrollbar flex overflow-x-scroll scroll-smooth gap-8">
+      <!-- Original set -->
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/8CEatE8MjUw" frameborder="0" allowfullscreen></iframe></div>
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/JFk-bPtSeK0" frameborder="0" allowfullscreen></iframe></div>
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/WuU1ZzxOcps" frameborder="0" allowfullscreen></iframe></div>
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/S53ijGWyeEM" frameborder="0" allowfullscreen></iframe></div>
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/p1T7e8aDD4Y" frameborder="0" allowfullscreen></iframe></div>
+
+      <!-- Clone set for seamless loop -->
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/8CEatE8MjUw" frameborder="0" allowfullscreen></iframe></div>
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/JFk-bPtSeK0" frameborder="0" allowfullscreen></iframe></div>
+      <div class="gradient-border youtube-wrapper"><iframe src="https://www.youtube.com/embed/WuU1ZzxOcps" frameborder="0" allowfullscreen></iframe></div>
     </div>
-    <div class="gradient-border overflow-hidden group youtube-wrapper">
-      <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="YouTube video" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="gradient-border overflow-hidden group youtube-wrapper">
-      <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="YouTube video" frameborder="0" allowfullscreen></iframe>
-    </div>
+
+    <!-- Right Button -->
+    <button onclick="scrollWorks(1)" aria-label="Scroll right"
+      class="absolute -right-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full shadow-xl hover:scale-110 transition"
+      style="background:linear-gradient(45deg,#d4af37,#f5e6c4);">
+      <span class="text-black text-3xl font-bold">&gt;</span>
+    </button>
   </div>
 </section>
+
+
+
+
 
 
 <!-- See More of My Works -->
@@ -103,7 +393,7 @@ h1,h2,h3,.luxury-heading { font-family: 'Playfair Display', serif; letter-spacin
       <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="w-12 h-12">
       <span class="text-gray-100 font-semibold">Instagram</span>
     </a>
-    <a href="https://youtube.com/@SADIKVisuals" target="_blank" class="inline-flex flex-col items-center gap-2 p-6 rounded-2xl backdrop-blur-md bg-black/30 shadow-lg transition hover:scale-105">
+    <a href="https://www.youtube.com/@SADIKVisuals/playlists" target="_blank" class="inline-flex flex-col items-center gap-2 p-6 rounded-2xl backdrop-blur-md bg-black/30 shadow-lg transition hover:scale-105">
       <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" class="w-12 h-12">
       <span class="text-gray-100 font-semibold">YouTube</span>
     </a>
@@ -123,21 +413,63 @@ Your vision, refined into timeless visuals.
 
 <!-- Stats -->
 <section id="stats" class="py-20 px-6 max-w-5xl mx-auto text-center fade-up">
+   <h2 class="text-3xl md:text-4xl luxury-heading gold-gradient mb-10">What Clients Gain With Me</h2>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
     <div>
-      <h3 class="counter gold-gradient" data-target="200">0</h3>
-      <p class="mt-2 text-gray-400">Edited Videos</p>
+      <h3 class="counter gold-gradient" data-target="300" data-suffix="%">0</h3>
+      <p class="mt-2 text-gray-400">More Engagement</p>
     </div>
     <div>
-      <h3 class="counter gold-gradient" data-target="50">0</h3>
-      <p class="mt-2 text-gray-400">Satisfied Clients</p>
+      <h3 class="counter gold-gradient" data-target="7" data-suffix="X">0</h3>
+      <p class="mt-2 text-gray-400">More Reach</p>
     </div>
     <div>
-      <h3 class="counter gold-gradient" data-target="5">0</h3>
-      <p class="mt-2 text-gray-400">Years of Experience</p>
+      <h3 class="counter gold-gradient" data-target="60" data-suffix="%">0</h3>
+      <p class="mt-2 text-gray-400">More Leads</p>
     </div>
   </div>
 </section>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- Types of Work Section -->
+<section id="new-marquee-section">
+   <h2 class="luxury-heading gold-gradient">Types of Work We Do</h2>
+
+  <!-- First row -->
+  <div id="marquee-row-1" class="marquee-container">
+    <div class="marquee">
+      <div class="card"><div class="icon"><i class="fab fa-youtube"></i></div><h3>Youtube Videos</h3><p>Full-length videos for content & branding.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-video"></i></div><h3>Short Form Videos</h3><p>Reels, TikToks & bite-sized clips.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-cubes"></i></div><h3>SAAS Videos</h3><p>Explainers that build product trust.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-bullhorn"></i></div><h3>Ad Creatives & VSLs</h3><p>Dynamic ads that convert leads.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-microphone"></i></div><h3>Podcasts</h3><p>Engaging audio/video conversations.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-laptop-code"></i></div><h3>Demo Videos</h3><p>Showcase product features clearly.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-rocket"></i></div><h3>Launch Videos</h3><p>Trendy edits for personal branding.</p></div>
+    </div>
+  </div>
+
+  <!-- Second row (reverse) -->
+  <div id="marquee-row-2" class="marquee-container">
+    <div class="marquee reverse">
+      <div class="card"><div class="icon"><i class="fab fa-youtube"></i></div><h3>Youtube Videos</h3><p>Full-length videos for content & branding.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-video"></i></div><h3>Short Form Videos</h3><p>Reels, TikToks & bite-sized clips.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-cubes"></i></div><h3>SAAS Videos</h3><p>Explainers that build product trust.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-bullhorn"></i></div><h3>Ad Creatives & VSLs</h3><p>Dynamic ads that convert leads.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-microphone"></i></div><h3>Podcasts</h3><p>Engaging audio/video conversations.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-laptop-code"></i></div><h3>Demo Videos</h3><p>Showcase product features clearly.</p></div>
+      <div class="card"><div class="icon"><i class="fas fa-rocket"></i></div><h3>Launch Videos</h3><p>Trendy edits for personal branding.</p></div>
+    </div>
+  </div>
+</section>
+
+
+
 
 <!-- Contact -->
 <section id="contact" class="py-24 px-6 fade-up">
@@ -146,7 +478,7 @@ Your vision, refined into timeless visuals.
       Let's Create Magic Together
     </h2>
     <p class="text-gray-300 mb-8">Ready to bring your vision to life? Place your order today</p>
-    <a href="https://instagram.com/yourusername" target="_blank" class="inline-block px-10 py-4 rounded-full font-semibold text-black"
+    <a href="https://www.instagram.com/sadik.visuals/" target="_blank" class="inline-block px-10 py-4 rounded-full font-semibold text-black"
        style="background: linear-gradient(45deg,#d4af37,#f5e6c4); transition: transform 0.3s, box-shadow 0.3s;">
       DM Me on Instagram
     </a>
@@ -159,24 +491,26 @@ Your vision, refined into timeless visuals.
 </footer>
 
 <!-- JS: Counter -->
- <script>
-// Counter Animation with "+" sign
+<script>
+// Counter Animation with suffix support
 const counters = document.querySelectorAll('.counter');
 const speed = 200; // lower = faster
 
 counters.forEach(counter => {
-  const target = +counter.getAttribute('data-target');
+  const target = parseInt(counter.getAttribute('data-target')); // numeric only
+  const suffix = counter.getAttribute('data-suffix') || ""; // %, X, etc.
+
   const updateCount = () => {
-    const count = +counter.innerText.replace('+',''); // remove + if exists
+    const current = parseInt(counter.innerText) || 0;
     const increment = target / speed;
 
-    if (count < target) {
-      counter.innerText = Math.ceil(count + increment);
+    if (current < target) {
+      counter.innerText = Math.ceil(current + increment) + suffix;
       requestAnimationFrame(updateCount);
     } else {
-      counter.innerText = target + '+';
+      counter.innerText = target + suffix;
     }
-  }
+  };
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -191,11 +525,66 @@ counters.forEach(counter => {
 });
 
 
+function scrollWorks(direction) {
+  const container = document.getElementById('works-container');
+  // Scroll by exactly one card width + the gap (gap-8 = 32px)
+  const firstItem = container.querySelector('.work-item');
+  const itemWidth = firstItem ? firstItem.getBoundingClientRect().width : 360;
+  const gap = 32; // tailwind gap-8
+  container.scrollBy({ left: direction * (itemWidth + gap), behavior: 'smooth' });
+}
 
-<!-- logo animation -->
 
+
+//scroll work for work section
+function scrollWorks(direction) {
+  const container = document.getElementById("works-container");
+  const card = container.querySelector(".youtube-wrapper");
+  if (!card) return;
+
+  const cardWidth = card.getBoundingClientRect().width + 32; // card + gap
+  container.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+
+  // Seamless infinite loop
+  setTimeout(() => {
+    const maxScroll = container.scrollWidth / 2; // half = original set
+    if (container.scrollLeft >= maxScroll) {
+      container.scrollLeft = 0; // jump back to start
+    }
+    if (container.scrollLeft <= 0) {
+      container.scrollLeft = maxScroll; // jump to end
+    }
+  }, 600); // wait for smooth scroll to finish
+}
+
+// Fade/zoom focus effect
+function updateFocus() {
+  const container = document.getElementById("works-container");
+  const cards = container.querySelectorAll(".youtube-wrapper");
+  const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+
+  let closestCard = null;
+  let closestDistance = Infinity;
+
+  cards.forEach(card => {
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+    const distance = Math.abs(containerCenter - cardCenter);
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestCard = card;
+    }
+  });
+
+  cards.forEach(card => card.classList.remove("active"));
+  if (closestCard) closestCard.classList.add("active");
+}
+
+// Attach listeners
+const worksContainer = document.getElementById("works-container");
+worksContainer.addEventListener("scroll", updateFocus);
+window.addEventListener("load", updateFocus);
 </script>
-
 
 </body>
 </html>
+
