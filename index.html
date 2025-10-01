@@ -167,19 +167,32 @@ a[href="#works"]:hover {
 
 #new-marquee-section .marquee-container {
   position: relative;
-  width: 50%;
+  width: 100%;          /* ✅ full width by default (mobile) */
+  max-width: 1200px;    /* ✅ don’t let it grow endlessly */
   overflow: hidden;
   margin-bottom: 40px;
   padding: 40px 0;
 
-  /* ✅ This applies feathering without adding background color */
   -webkit-mask-image: linear-gradient(to right, transparent, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, transparent);
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
-
   mask-image: linear-gradient(to right, transparent, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, transparent);
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
+}
+
+/* ✅ On medium screens and up (≥768px), shrink it to 70% */
+@media (min-width: 768px) {
+  #new-marquee-section .marquee-container {
+    width: 70%;
+  }
+}
+
+/* ✅ On large screens (≥1024px), shrink it further to 50% */
+@media (min-width: 1024px) {
+  #new-marquee-section .marquee-container {
+    width: 50%;
+  }
 }
 
 
